@@ -1,46 +1,13 @@
-# Expense Watch — Backend
+Expense Watch — Backend 
 
-A production-like Spring Boot backend for personal expense tracking with JWT authentication.
+Expense Watch is a production-style Spring Boot backend designed for personal expense tracking, featuring secure JWT-based authentication and a clean, scalable architecture. Built using Spring Boot 3 and Java 17, the project demonstrates real-world backend development practices, including layered design, validation, exception handling, logging, and database interactions through JPA.
 
-## What this repo contains
-- Spring Boot 3 application (Java 17)
-- JWT-based authentication (register/login)
-- Expense CRUD scoped to authenticated users
-- Reports: totals by category and by month
-- CSV export
-- Centralized exception handling and logging
-- Postman collection to try APIs locally
+The application provides a complete authentication module where users can register and log in. After successful login, the system issues a JWT, allowing secure access to protected endpoints. Each expense record is linked to a specific user, ensuring strict data isolation and ownership enforcement at the service layer.
 
-## How to run
-1. Install Java 17, Maven, and MySQL.
-2. Update `src/main/resources/application.properties` with your DB credentials and a secure `jwt.secret`.
-3. Create the database manually or run `src/main/resources/schema.sql`.
-4. (Optional) adjust `data.sql` for initial seed users.
-5. Package & run:
+Core functionality includes full CRUD operations for expenses, enabling users to create, update, delete, and view their spending. In addition to basic operations, the project includes reporting features such as category-wise and month-wise summaries. These reports rely on optimized aggregation queries executed at the database level for better performance when handling larger datasets. Users can also export filtered expenses as CSV files.
 
-```bash
-mvn clean package
-java -jar target/expense-watch-1.0.0.jar
-```
+Running the project is straightforward: set up Java 17, Maven, and MySQL; configure application properties; initialize the database; and run using mvn clean package followed by executing the generated JAR file. A Postman collection is included for quick testing of all APIs.
 
-## API (quick)
-- `POST /api/auth/register` — register (body: username,password)
-- `POST /api/auth/login` — login => returns JWT
-- `GET /api/users/me` — current user
-- `POST /api/expenses` — create expense (authenticated)
-- `GET /api/expenses` — list expenses
-- `GET /api/expenses/report/category?start=YYYY-MM-DD&end=YYYY-MM-DD`
-- `GET /api/expenses/export/csv?start=YYYY-MM-DD&end=YYYY-MM-DD` — download CSV
+For interviews, you can highlight concepts such as JWT authentication flow, layered architecture (Controller → Service → Repository), exception handling strategy, and how user-scoped data security is maintained. You can also discuss potential enhancements like pagination, receipt uploads, scheduled reminders, or monitoring dashboards.
 
-## Interview talking points
-- Explain layered architecture (Controller-Service-Repository)
-- JWT flow: login -> token -> Authorization header
-- Data ownership: each expense belongs to a user — enforced in service
-- Aggregation queries executed at DB level for performance
-- How to extend: pagination, file upload for receipts, scheduled email alerts, metrics/monitoring
-
-## Next steps to show in interviews
-- Add Swagger/OpenAPI
-- Add integration tests using Testcontainers for MySQL
-- CI/CD pipeline with GitHub Actions and Docker image build
-write this same in 300 words 
+Recommended next steps for showcasing the project include adding Swagger/OpenAPI documentation, writing integration tests with Testcontainers, and setting up a CI/CD pipeline using GitHub Actions with Docker image deployment.
